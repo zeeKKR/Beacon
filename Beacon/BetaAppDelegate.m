@@ -7,11 +7,14 @@
 //
 
 #import "BetaAppDelegate.h"
+#import <GoogleMaps/GoogleMaps.h>
 
 @implementation BetaAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [GMSServices provideAPIKey:@"AIzaSyDA7VKDn5CeW8_so2W3vbt80q0LZPyJeMU"];
+    [NSThread sleepForTimeInterval:(3)];
     // Override point for customization after application launch.
     return YES;
 }
