@@ -7,14 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E5AB25A518DFAECC007BDEE4 /* AudioFileReader.mm in Sources */ = {isa = PBXBuildFile; fileRef = E5AB259E18DFAECC007BDEE4 /* AudioFileReader.mm */; };
+		E5AB25A618DFAECC007BDEE4 /* AudioFileWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AB25A018DFAECC007BDEE4 /* AudioFileWriter.m */; };
+		E5AB25A718DFAECC007BDEE4 /* Novocaine.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AB25A218DFAECC007BDEE4 /* Novocaine.m */; };
+		E5AB25A818DFAECC007BDEE4 /* RingBuffer.mm in Sources */ = {isa = PBXBuildFile; fileRef = E5AB25A418DFAECC007BDEE4 /* RingBuffer.mm */; };
+		E5AB25AA18DFB170007BDEE4 /* TLC.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E5AB25A918DFB170007BDEE4 /* TLC.mp3 */; };
 		E5C8967F18BBDD6500BDFC49 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5C8967E18BBDD6500BDFC49 /* Foundation.framework */; };
 		E5C8968118BBDD6500BDFC49 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5C8968018BBDD6500BDFC49 /* CoreGraphics.framework */; };
 		E5C8968318BBDD6500BDFC49 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5C8968218BBDD6500BDFC49 /* UIKit.framework */; };
 		E5C8968918BBDD6500BDFC49 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E5C8968718BBDD6500BDFC49 /* InfoPlist.strings */; };
 		E5C8968B18BBDD6500BDFC49 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C8968A18BBDD6500BDFC49 /* main.m */; };
-		E5C8968F18BBDD6500BDFC49 /* BetaAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C8968E18BBDD6500BDFC49 /* BetaAppDelegate.m */; };
+		E5C8968F18BBDD6500BDFC49 /* BetaAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E5C8968E18BBDD6500BDFC49 /* BetaAppDelegate.mm */; };
 		E5C8969218BBDD6500BDFC49 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5C8969018BBDD6500BDFC49 /* Main.storyboard */; };
-		E5C8969518BBDD6500BDFC49 /* BetaFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C8969418BBDD6500BDFC49 /* BetaFirstViewController.m */; };
+		E5C8969518BBDD6500BDFC49 /* BetaFirstViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E5C8969418BBDD6500BDFC49 /* BetaFirstViewController.mm */; };
 		E5C8969818BBDD6500BDFC49 /* BetaSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C8969718BBDD6500BDFC49 /* BetaSecondViewController.m */; };
 		E5C8969A18BBDD6500BDFC49 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5C8969918BBDD6500BDFC49 /* Images.xcassets */; };
 		E5C896A118BBDD6500BDFC49 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5C896A018BBDD6500BDFC49 /* XCTest.framework */; };
@@ -49,6 +54,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E5AB259D18DFAECC007BDEE4 /* AudioFileReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFileReader.h; sourceTree = "<group>"; };
+		E5AB259E18DFAECC007BDEE4 /* AudioFileReader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AudioFileReader.mm; sourceTree = "<group>"; };
+		E5AB259F18DFAECC007BDEE4 /* AudioFileWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFileWriter.h; sourceTree = "<group>"; };
+		E5AB25A018DFAECC007BDEE4 /* AudioFileWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioFileWriter.m; sourceTree = "<group>"; };
+		E5AB25A118DFAECC007BDEE4 /* Novocaine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Novocaine.h; sourceTree = "<group>"; };
+		E5AB25A218DFAECC007BDEE4 /* Novocaine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Novocaine.m; sourceTree = "<group>"; };
+		E5AB25A318DFAECC007BDEE4 /* RingBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RingBuffer.h; sourceTree = "<group>"; };
+		E5AB25A418DFAECC007BDEE4 /* RingBuffer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RingBuffer.mm; sourceTree = "<group>"; };
+		E5AB25A918DFB170007BDEE4 /* TLC.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = TLC.mp3; sourceTree = "<group>"; };
 		E5C8967B18BBDD6500BDFC49 /* Beacon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Beacon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5C8967E18BBDD6500BDFC49 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E5C8968018BBDD6500BDFC49 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -58,10 +72,10 @@
 		E5C8968A18BBDD6500BDFC49 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E5C8968C18BBDD6500BDFC49 /* Beacon-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Beacon-Prefix.pch"; sourceTree = "<group>"; };
 		E5C8968D18BBDD6500BDFC49 /* BetaAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BetaAppDelegate.h; sourceTree = "<group>"; };
-		E5C8968E18BBDD6500BDFC49 /* BetaAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BetaAppDelegate.m; sourceTree = "<group>"; };
+		E5C8968E18BBDD6500BDFC49 /* BetaAppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BetaAppDelegate.mm; sourceTree = "<group>"; };
 		E5C8969118BBDD6500BDFC49 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E5C8969318BBDD6500BDFC49 /* BetaFirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BetaFirstViewController.h; sourceTree = "<group>"; };
-		E5C8969418BBDD6500BDFC49 /* BetaFirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BetaFirstViewController.m; sourceTree = "<group>"; };
+		E5C8969418BBDD6500BDFC49 /* BetaFirstViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BetaFirstViewController.mm; sourceTree = "<group>"; };
 		E5C8969618BBDD6500BDFC49 /* BetaSecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BetaSecondViewController.h; sourceTree = "<group>"; };
 		E5C8969718BBDD6500BDFC49 /* BetaSecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BetaSecondViewController.m; sourceTree = "<group>"; };
 		E5C8969918BBDD6500BDFC49 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -123,6 +137,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E5AB259C18DFAECC007BDEE4 /* Novocaine */ = {
+			isa = PBXGroup;
+			children = (
+				E5AB259D18DFAECC007BDEE4 /* AudioFileReader.h */,
+				E5AB259E18DFAECC007BDEE4 /* AudioFileReader.mm */,
+				E5AB259F18DFAECC007BDEE4 /* AudioFileWriter.h */,
+				E5AB25A018DFAECC007BDEE4 /* AudioFileWriter.m */,
+				E5AB25A118DFAECC007BDEE4 /* Novocaine.h */,
+				E5AB25A218DFAECC007BDEE4 /* Novocaine.m */,
+				E5AB25A318DFAECC007BDEE4 /* RingBuffer.h */,
+				E5AB25A418DFAECC007BDEE4 /* RingBuffer.mm */,
+			);
+			name = Novocaine;
+			path = ../Novocaine;
+			sourceTree = "<group>";
+		};
 		E5C8967218BBDD6500BDFC49 = {
 			isa = PBXGroup;
 			children = (
@@ -170,11 +200,12 @@
 		E5C8968418BBDD6500BDFC49 /* Beacon */ = {
 			isa = PBXGroup;
 			children = (
+				E5AB259C18DFAECC007BDEE4 /* Novocaine */,
 				E5C8968D18BBDD6500BDFC49 /* BetaAppDelegate.h */,
-				E5C8968E18BBDD6500BDFC49 /* BetaAppDelegate.m */,
+				E5C8968E18BBDD6500BDFC49 /* BetaAppDelegate.mm */,
 				E5C8969018BBDD6500BDFC49 /* Main.storyboard */,
 				E5C8969318BBDD6500BDFC49 /* BetaFirstViewController.h */,
-				E5C8969418BBDD6500BDFC49 /* BetaFirstViewController.m */,
+				E5C8969418BBDD6500BDFC49 /* BetaFirstViewController.mm */,
 				E5C8969618BBDD6500BDFC49 /* BetaSecondViewController.h */,
 				E5C8969718BBDD6500BDFC49 /* BetaSecondViewController.m */,
 				E5C8969918BBDD6500BDFC49 /* Images.xcassets */,
@@ -187,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				E5C8968618BBDD6500BDFC49 /* Beacon-Info.plist */,
+				E5AB25A918DFB170007BDEE4 /* TLC.mp3 */,
 				E5C8968718BBDD6500BDFC49 /* InfoPlist.strings */,
 				E5C8968A18BBDD6500BDFC49 /* main.m */,
 				E5C8968C18BBDD6500BDFC49 /* Beacon-Prefix.pch */,
@@ -290,6 +322,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5C8969A18BBDD6500BDFC49 /* Images.xcassets in Resources */,
+				E5AB25AA18DFB170007BDEE4 /* TLC.mp3 in Resources */,
 				E5C8968918BBDD6500BDFC49 /* InfoPlist.strings in Resources */,
 				E5C8969218BBDD6500BDFC49 /* Main.storyboard in Resources */,
 				E5C896B918BBE26A00BDFC49 /* GoogleMaps.bundle in Resources */,
@@ -312,9 +345,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5C8969818BBDD6500BDFC49 /* BetaSecondViewController.m in Sources */,
-				E5C8968F18BBDD6500BDFC49 /* BetaAppDelegate.m in Sources */,
-				E5C8969518BBDD6500BDFC49 /* BetaFirstViewController.m in Sources */,
+				E5C8968F18BBDD6500BDFC49 /* BetaAppDelegate.mm in Sources */,
+				E5C8969518BBDD6500BDFC49 /* BetaFirstViewController.mm in Sources */,
+				E5AB25A718DFAECC007BDEE4 /* Novocaine.m in Sources */,
+				E5AB25A518DFAECC007BDEE4 /* AudioFileReader.mm in Sources */,
 				E5C8968B18BBDD6500BDFC49 /* main.m in Sources */,
+				E5AB25A618DFAECC007BDEE4 /* AudioFileWriter.m in Sources */,
+				E5AB25A818DFAECC007BDEE4 /* RingBuffer.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,7 +409,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -412,7 +449,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -535,6 +572,7 @@
 				E5C896B218BBDD6500BDFC49 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E5C896B318BBDD6500BDFC49 /* Build configuration list for PBXNativeTarget "BeaconTests" */ = {
 			isa = XCConfigurationList;
@@ -543,6 +581,7 @@
 				E5C896B518BBDD6500BDFC49 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
