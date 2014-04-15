@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D50223118FCE5020030EC86 /* mix.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2D50223018FCE5020030EC86 /* mix.mp3 */; };
+		2D50286018EF51F200005805 /* 100.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2D50285E18EF51F200005805 /* 100.wav */; };
+		2D50286118EF51F200005805 /* 10000.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2D50285F18EF51F200005805 /* 10000.wav */; };
 		E5AB25A518DFAECC007BDEE4 /* AudioFileReader.mm in Sources */ = {isa = PBXBuildFile; fileRef = E5AB259E18DFAECC007BDEE4 /* AudioFileReader.mm */; };
 		E5AB25A618DFAECC007BDEE4 /* AudioFileWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AB25A018DFAECC007BDEE4 /* AudioFileWriter.m */; };
 		E5AB25A718DFAECC007BDEE4 /* Novocaine.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AB25A218DFAECC007BDEE4 /* Novocaine.m */; };
@@ -54,6 +57,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2D50223018FCE5020030EC86 /* mix.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mix.mp3; sourceTree = "<group>"; };
+		2D50285E18EF51F200005805 /* 100.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 100.wav; sourceTree = "<group>"; };
+		2D50285F18EF51F200005805 /* 10000.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 10000.wav; sourceTree = "<group>"; };
 		E5AB259D18DFAECC007BDEE4 /* AudioFileReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFileReader.h; sourceTree = "<group>"; };
 		E5AB259E18DFAECC007BDEE4 /* AudioFileReader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AudioFileReader.mm; sourceTree = "<group>"; };
 		E5AB259F18DFAECC007BDEE4 /* AudioFileWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFileWriter.h; sourceTree = "<group>"; };
@@ -217,6 +223,9 @@
 		E5C8968518BBDD6500BDFC49 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2D50223018FCE5020030EC86 /* mix.mp3 */,
+				2D50285E18EF51F200005805 /* 100.wav */,
+				2D50285F18EF51F200005805 /* 10000.wav */,
 				E5C8968618BBDD6500BDFC49 /* Beacon-Info.plist */,
 				E5AB25A918DFB170007BDEE4 /* TLC.mp3 */,
 				E5C8968718BBDD6500BDFC49 /* InfoPlist.strings */,
@@ -321,7 +330,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D50286118EF51F200005805 /* 10000.wav in Resources */,
+				2D50286018EF51F200005805 /* 100.wav in Resources */,
 				E5C8969A18BBDD6500BDFC49 /* Images.xcassets in Resources */,
+				2D50223118FCE5020030EC86 /* mix.mp3 in Resources */,
 				E5AB25AA18DFB170007BDEE4 /* TLC.mp3 in Resources */,
 				E5C8968918BBDD6500BDFC49 /* InfoPlist.strings in Resources */,
 				E5C8969218BBDD6500BDFC49 /* Main.storyboard in Resources */,

@@ -174,22 +174,33 @@
     
     // AUDIO FILE READING OHHH YEAHHHH
     // ========================================
-    NSURL *inputFileURL = [[NSBundle mainBundle] URLForResource:@"TLC" withExtension:@"mp3"];
-    
+//    NSURL *inputFileURL = [[NSBundle mainBundle] URLForResource:@"TLC" withExtension:@"mp3"];
+    NSURL *inputFileURL = [[NSBundle mainBundle] URLForResource:@"mix" withExtension:@"mp3"];
     self.fileReader = [[AudioFileReader alloc]
                        initWithAudioFileURL:inputFileURL
                        samplingRate:self.audioManager.samplingRate
                        numChannels:self.audioManager.numOutputChannels];
     
     [self.fileReader play];
-    self.fileReader.currentTime = 30.0;
+    self.fileReader.currentTime = 0.0;
     
     
     [self.audioManager setOutputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels)
      {
          [self.fileReader retrieveFreshAudio:data numFrames:numFrames numChannels:numChannels];
-         NSLog(@"Time: %f", self.fileReader.currentTime);
+         
+         vDSP_Length crossing;
+         vDSP_Length total;
+         const vDSP_Length numCrossings = numFrames;
+         
+         vDSP_nzcros(data, 1, numCrossings, &crossing, &total, numFrames*numChannels);
+         printf("Total: %lu\n", total);
+         
      }];
+    [self.audioManager setInputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels) {
+
+        
+    }];
     
     // AUDIO FILE WRITING YEAH!
     // ========================================
