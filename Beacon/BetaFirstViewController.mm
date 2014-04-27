@@ -8,15 +8,24 @@
 
 #import "BetaFirstViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
+#import "FrequencyConstants.h"
 
 @interface BetaFirstViewController ()
 
 @property (nonatomic, assign) RingBuffer *ringBuffer;
+@property (nonatomic) NSString *longitude;
+@property (nonatomic) NSString *latitude;
+@property (nonatomic) BOOL waitingForInfo; // boolean that says whether you are waiting for information or in between digits
+@property (nonatomic) NSString *currentInfo; // variable that says what variable you are currently updating
 
 @end
 
 @implementation BetaFirstViewController{
     GMSMapView *mapView_;
+}
+
+BOOL inFrequencyRange(vDSP_Length zeroCrossings, int range){
+    return NSLocationInRange(zeroCrossings, NSMakeRange(range - 5, range + 5));
 }
 
 - (void)viewDidLoad
@@ -194,8 +203,29 @@
          const vDSP_Length numCrossings = numFrames;
          
          vDSP_nzcros(data, 1, numCrossings, &crossing, &total, numFrames*numChannels);
-         printf("Total: %lu\n", total);
          
+         if(inFrequencyRange(total, freq_change_digit)) {
+             _waitingForInfo = YES;
+         } else if (_waitingForInfo) {
+             _waitingForInfo = YES;
+             if (inFrequencyRange(total, freq_lat)) {
+                 _currentInfo = @"lat";
+             } else if (inFrequencyRange(total, freq_long)) {
+                 _currentInfo = @"long";
+             } else {
+                 NSString *digit = @(total).stringValue; //get the digit by matching with the frequency
+                 if ([_currentInfo isEqualToString:@"lat"]) {
+                     [_latitude stringByAppendingString:digit];
+                     // if complete, then expect another tone
+                 } else if ([_currentInfo isEqualToString:@"long"]) {
+                     [_longitude stringByAppendingString:digit];
+                     // if complete, then expect another tone
+                 }
+             }
+         }
+         
+         printf("Total: %lu\n", total);
+           
      }];
     [self.audioManager setInputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels) {
 
