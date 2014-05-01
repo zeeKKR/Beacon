@@ -24,12 +24,15 @@
     GMSMapView *mapView_;
 }
 
+// Says whether a given number of zero crossings is within a certain range
 BOOL inFrequencyRange(vDSP_Length zeroCrossings, int range){
-    return NSLocationInRange(zeroCrossings, NSMakeRange(range - 5, range + 5));
+    zeroCrossings = NSUInteger(zeroCrossings);
+    return zeroCrossings > range - 2 && zeroCrossings < range + 2;
 }
 
 - (void)viewDidLoad
 {
+    _waitingForInfo = NO;
     // Create a GMSCameraPosition that tells the map to display the
     // coordinate -33.86,151.20 at zoom level 6.
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:40.808138
@@ -91,19 +94,19 @@ BOOL inFrequencyRange(vDSP_Length zeroCrossings, int range){
     
     // MEASURE SOME DECIBELS!
     // ==================================================
-    //    __block float dbVal = 0.0;
-    //    [self.audioManager setInputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels) {
+   __block float dbVal = 0.0;
+   [self.audioManager setInputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels) {
     //
-    //        vDSP_vsq(data, 1, data, 1, numFrames*numChannels);
-    //        float meanVal = 0.0;
-    //        vDSP_meanv(data, 1, &meanVal, numFrames*numChannels);
+       vDSP_vsq(data, 1, data, 1, numFrames*numChannels);
+       float meanVal = 0.0;
+       vDSP_meanv(data, 1, &meanVal, numFrames*numChannels);
     //
-    //        float one = 1.0;
-    //        vDSP_vdbcon(&meanVal, 1, &one, &meanVal, 1, 1, 0);
-    //        dbVal = dbVal + 0.2*(meanVal - dbVal);
-    //        printf("Decibel level: %f\n", dbVal);
+       float one = 1.0;
+       vDSP_vdbcon(&meanVal, 1, &one, &meanVal, 1, 1, 0);
+       dbVal = dbVal + 0.2*(meanVal - dbVal);
+       printf("Decibel level: %f\n", dbVal);
     //
-    //    }];
+   }];
     
     // SIGNAL GENERATOR!
     //    __block float frequency = 2000.0;
@@ -183,8 +186,9 @@ BOOL inFrequencyRange(vDSP_Length zeroCrossings, int range){
     
     // AUDIO FILE READING OHHH YEAHHHH
     // ========================================
-//    NSURL *inputFileURL = [[NSBundle mainBundle] URLForResource:@"TLC" withExtension:@"mp3"];
-    NSURL *inputFileURL = [[NSBundle mainBundle] URLForResource:@"mix" withExtension:@"mp3"];
+    NSURL *inputFileURL = [[NSBundle mainBundle] URLForResource:@"TLC" withExtension:@"mp3"];
+//    NSURL *inputFileURL = [[NSBundle mainBundle] URLForResource:@"samplefile" withExtension:@"wav"];
+//    NSURL *inputFileURL = [[NSBundle mainBundle] URLForResource:@"2000" withExtension:@"wav"];
     self.fileReader = [[AudioFileReader alloc]
                        initWithAudioFileURL:inputFileURL
                        samplingRate:self.audioManager.samplingRate
@@ -194,6 +198,7 @@ BOOL inFrequencyRange(vDSP_Length zeroCrossings, int range){
     self.fileReader.currentTime = 0.0;
     
     
+    /*
     [self.audioManager setOutputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels)
      {
          [self.fileReader retrieveFreshAudio:data numFrames:numFrames numChannels:numChannels];
@@ -204,10 +209,13 @@ BOOL inFrequencyRange(vDSP_Length zeroCrossings, int range){
          
          vDSP_nzcros(data, 1, numCrossings, &crossing, &total, numFrames*numChannels);
          
+         NSLog(@"total %lu", total);
          if(inFrequencyRange(total, freq_change_digit)) {
-             _waitingForInfo = YES;
+             NSLog(@"Waiting for information");
+             _waitingForInfo= YES;
          } else if (_waitingForInfo) {
-             _waitingForInfo = YES;
+             _waitingForInfo = NO;
+             NSLog(@"Got %lu", total);
              if (inFrequencyRange(total, freq_lat)) {
                  _currentInfo = @"lat";
              } else if (inFrequencyRange(total, freq_long)) {
@@ -223,14 +231,13 @@ BOOL inFrequencyRange(vDSP_Length zeroCrossings, int range){
                  }
              }
          }
-         
-         printf("Total: %lu\n", total);
-           
      }];
+    
     [self.audioManager setInputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels) {
 
         
     }];
+     */
     
     // AUDIO FILE WRITING YEAH!
     // ========================================

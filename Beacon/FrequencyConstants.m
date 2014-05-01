@@ -22,6 +22,6 @@ int const freq_8 = 0;
 int const freq_9 = 0;
 int const freq_lat = 0;
 int const freq_long = 0;
-int const freq_change_digit = 0;
+int const freq_change_digit = 23;
 
 @end
