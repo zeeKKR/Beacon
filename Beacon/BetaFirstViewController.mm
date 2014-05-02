@@ -17,6 +17,8 @@
 @property (nonatomic) NSString *latitude;
 @property (nonatomic) BOOL waitingForInfo; // boolean that says whether you are waiting for information or in between digits
 @property (nonatomic) NSString *currentInfo; // variable that says what variable you are currently updating
+@property (nonatomic) BOOL dropPin;
+
 
 @end
 
@@ -32,7 +34,12 @@ BOOL inFrequencyRange(vDSP_Length zeroCrossings, int range){
 
 - (void)viewDidLoad
 {
+    BetaAppDelegate *appDelegate;
+    appDelegate = [(BetaAppDelegate *)[UIApplication sharedApplication] delegate];
+    appDelegate.global_string = @"foo";
+    
     _waitingForInfo = NO;
+    _dropPin = NO;
     // Create a GMSCameraPosition that tells the map to display the
     // coordinate -33.86,151.20 at zoom level 6.
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:40.808138
@@ -42,13 +49,29 @@ BOOL inFrequencyRange(vDSP_Length zeroCrossings, int range){
     mapView_.myLocationEnabled = YES;
     self.view = mapView_;
     
-    // Creates a marker in the center of the map.
-    GMSMarker *marker = [[GMSMarker alloc] init];
-    marker.position = CLLocationCoordinate2DMake(40.808138, -73.963814);
-    marker.title = @"Columbia University";
-    marker.snippet = @"";
-    marker.map = mapView_;
+    //for(int i=0;i<[array count];i++)
     
+//    NSString *counter = @"1";
+//    
+//    _latitude = @"40.8081";
+//    _longitude = @"-73.9638";
+
+    //if(_dropPin)
+    //{
+//    sleep(3);
+//        double lat = [_latitude doubleValue];
+//        double lng = [_longitude doubleValue];
+//        
+//        GMSMarker *marker = [[GMSMarker alloc] init];
+//        marker.position = CLLocationCoordinate2DMake(lat, lng);
+//        marker.title = @"Columbia";
+//        marker.snippet = counter;
+//        marker.map = mapView_;
+//        
+//        int temp = [counter intValue];
+//        temp++;
+//        counter = [@(temp)stringValue];
+    //}
     //[super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 }
@@ -63,20 +86,21 @@ BOOL inFrequencyRange(vDSP_Length zeroCrossings, int range){
 {
     [super viewWillAppear:animated];
     
-    //__weak UIViewController * wself = self;
+    //__weak BetaFirstViewController * wself = self;
     
     self.ringBuffer = new RingBuffer(32768, 2);
     self.audioManager = [Novocaine audioManager];
     
     
     // Basic playthru example
-    //    [self.audioManager setInputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels) {
-    //        float volume = 0.5;
-    //        vDSP_vsmul(data, 1, &volume, data, 1, numFrames*numChannels);
-    //        wself.ringBuffer->AddNewInterleavedFloatData(data, numFrames, numChannels);
-    //    }];
-    //
-    //
+//        [self.audioManager setInputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels) {
+//            float volume = 0.5;
+//            vDSP_vsmul(data, 1, &volume, data, 1, numFrames*numChannels);
+//            //wself.ringBuffer->AddNewInterleavedFloatData(data, numFrames, numChannels);
+//            wself.ringBuffer->AddNewInterleavedFloatData(data, numFrames, numChannels);
+//        }];
+    
+    
     //    [self.audioManager setOutputBlock:^(float *outData, UInt32 numFrames, UInt32 numChannels) {
     //        wself.ringBuffer->FetchInterleavedData(outData, numFrames, numChannels);
     //    }];
@@ -94,19 +118,36 @@ BOOL inFrequencyRange(vDSP_Length zeroCrossings, int range){
     
     // MEASURE SOME DECIBELS!
     // ==================================================
-   __block float dbVal = 0.0;
-   [self.audioManager setInputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels) {
-    //
-       vDSP_vsq(data, 1, data, 1, numFrames*numChannels);
-       float meanVal = 0.0;
-       vDSP_meanv(data, 1, &meanVal, numFrames*numChannels);
-    //
-       float one = 1.0;
-       vDSP_vdbcon(&meanVal, 1, &one, &meanVal, 1, 1, 0);
-       dbVal = dbVal + 0.2*(meanVal - dbVal);
-       printf("Decibel level: %f\n", dbVal);
-    //
-   }];
+//   __block float dbVal = 0.0;
+//   [self.audioManager setInputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels) {
+//
+//       vDSP_vsq(data, 1, data, 1, numFrames*numChannels);
+//       float meanVal = 0.0;
+//       vDSP_meanv(data, 1, &meanVal, numFrames*numChannels);
+//       
+//       float one = 1.0;
+//       vDSP_vdbcon(&meanVal, 1, &one, &meanVal, 1, 1, 0);
+//       dbVal = dbVal + 0.2*(meanVal - dbVal);
+//       printf("Decibel level: %f\n", dbVal);
+//    
+//       vDSP_Length crossing;
+//       vDSP_Length total;
+//       const vDSP_Length numCrossings = numFrames;
+//       
+//       vDSP_nzcros(data, 1, numCrossings, &crossing, &total, numFrames*numChannels);
+//       
+//       NSLog(@"total %lu", total);
+//       
+//       for(int i = 0; i < 1024; i++){
+//           NSLog(@"%i:%f",i ,data[i]);
+//       }
+    
+//    BetaAppDelegate *appDelegate;
+//    appDelegate = [(BetaAppDelegate *)[UIApplication sharedApplication] delegate];
+//    appDelegate.global_string = [NSString stringWithFormat:@"%f", dbVal];
+//
+//   }];
+    
     
     // SIGNAL GENERATOR!
     //    __block float frequency = 2000.0;
@@ -186,9 +227,14 @@ BOOL inFrequencyRange(vDSP_Length zeroCrossings, int range){
     
     // AUDIO FILE READING OHHH YEAHHHH
     // ========================================
-    NSURL *inputFileURL = [[NSBundle mainBundle] URLForResource:@"TLC" withExtension:@"mp3"];
+//    NSURL *inputFileURL = [[NSBundle mainBundle] URLForResource:@"TLC" withExtension:@"mp3"];
 //    NSURL *inputFileURL = [[NSBundle mainBundle] URLForResource:@"samplefile" withExtension:@"wav"];
 //    NSURL *inputFileURL = [[NSBundle mainBundle] URLForResource:@"2000" withExtension:@"wav"];
+    //[NSThread sleepForTimeInterval:(5)];
+    NSURL *inputFileURL = [[NSBundle mainBundle] URLForResource:@"Columbia1" withExtension:@"wav"];
+    BOOL flag = 0;
+    //NSURL *inputFileURL = [[NSBundle mainBundle] URLForResource:@"Columbia2" withExtension:@"wav"];
+    //BOOL flag = 1;
     self.fileReader = [[AudioFileReader alloc]
                        initWithAudioFileURL:inputFileURL
                        samplingRate:self.audioManager.samplingRate
@@ -198,7 +244,12 @@ BOOL inFrequencyRange(vDSP_Length zeroCrossings, int range){
     self.fileReader.currentTime = 0.0;
     
     
-    /*
+    
+    
+//    [self.audioManager setInputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels) {
+//        
+//    }];
+    
     [self.audioManager setOutputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels)
      {
          [self.fileReader retrieveFreshAudio:data numFrames:numFrames numChannels:numChannels];
@@ -209,9 +260,9 @@ BOOL inFrequencyRange(vDSP_Length zeroCrossings, int range){
          
          vDSP_nzcros(data, 1, numCrossings, &crossing, &total, numFrames*numChannels);
          
-         NSLog(@"total %lu", total);
+         NSLog(@"Zero crossings %lu", total);
          if(inFrequencyRange(total, freq_change_digit)) {
-             NSLog(@"Waiting for information");
+             //NSLog(@"Waiting for information");
              _waitingForInfo= YES;
          } else if (_waitingForInfo) {
              _waitingForInfo = NO;
@@ -233,11 +284,31 @@ BOOL inFrequencyRange(vDSP_Length zeroCrossings, int range){
          }
      }];
     
-    [self.audioManager setInputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels) {
-
-        
-    }];
-     */
+    NSString *counter = @"1";
+        _latitude = @"40.8091";
+        _longitude = @"-73.9638";
+    
+    if(flag != 0){
+        _latitude = @"40.809318";
+        _longitude = @"-73.959274";
+    }
+    
+    double lat = [_latitude doubleValue];
+    double lng = [_longitude doubleValue];
+    
+    GMSMarker *marker = [[GMSMarker alloc] init];
+    marker.position = CLLocationCoordinate2DMake(lat, lng);
+    marker.title = @"Columbia";
+    marker.snippet = counter;
+    marker.map = mapView_;
+    
+    int temp = [counter intValue];
+    temp++;
+    counter = [@(temp)stringValue];
+    
+    BetaAppDelegate *appDelegate;
+    appDelegate = [(BetaAppDelegate *)[UIApplication sharedApplication] delegate];
+    appDelegate.global_string = [NSString stringWithFormat:@"Latitude: %f, Longitude: %f", lat, lng];
     
     // AUDIO FILE WRITING YEAH!
     // ========================================

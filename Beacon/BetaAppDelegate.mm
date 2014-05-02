@@ -11,6 +11,7 @@
 #import "BetaFirstViewController.h"
 
 @implementation BetaAppDelegate
+@synthesize global_string;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

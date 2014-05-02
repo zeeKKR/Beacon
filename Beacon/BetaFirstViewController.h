@@ -11,6 +11,7 @@
 #import "RingBuffer.h"
 #import "AudioFileReader.h"
 #import "AudioFileWriter.h"
+#import "BetaAppDelegate.h"
 
 @interface BetaFirstViewController : UIViewController
 

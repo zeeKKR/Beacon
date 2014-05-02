@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BetaAppDelegate.h"
 
 @interface BetaSecondViewController : UIViewController
 
