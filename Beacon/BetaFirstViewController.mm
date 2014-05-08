@@ -32,6 +32,25 @@ BOOL inFrequencyRange(vDSP_Length zeroCrossings, int range){
     return zeroCrossings > range - 2 && zeroCrossings < range + 2;
 }
 
+int nCrossings(NSArray *data){
+    float average = 0.0;
+    int total = 0;
+    
+    for(int n = 1; n < [data count]; n++) {
+        average += [[data objectAtIndex:n] floatValue];
+    }
+    average = average / [data count];
+    
+    for(int n = 1; n < [data count] - 1; n++) {
+        float val1 = [[data objectAtIndex:n] floatValue];
+        float val2 = [[data objectAtIndex:n+1] floatValue];
+        if ((val1 < average && val2 > average) || (val1 > average && val2 < average)) {
+            total++;
+        }
+    }
+    return total;
+}
+
 - (void)viewDidLoad
 {
     BetaAppDelegate *appDelegate;
@@ -118,35 +137,38 @@ BOOL inFrequencyRange(vDSP_Length zeroCrossings, int range){
     
     // MEASURE SOME DECIBELS!
     // ==================================================
-//   __block float dbVal = 0.0;
-//   [self.audioManager setInputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels) {
-//
-//       vDSP_vsq(data, 1, data, 1, numFrames*numChannels);
-//       float meanVal = 0.0;
-//       vDSP_meanv(data, 1, &meanVal, numFrames*numChannels);
-//       
-//       float one = 1.0;
-//       vDSP_vdbcon(&meanVal, 1, &one, &meanVal, 1, 1, 0);
-//       dbVal = dbVal + 0.2*(meanVal - dbVal);
+   __block float dbVal = 0.0;
+   [self.audioManager setInputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels) {
+
+       vDSP_vsq(data, 1, data, 1, numFrames*numChannels);
+       float meanVal = 0.0;
+       vDSP_meanv(data, 1, &meanVal, numFrames*numChannels);
+       
+       float one = 1.0;
+       vDSP_vdbcon(&meanVal, 1, &one, &meanVal, 1, 1, 0);
+       dbVal = dbVal + 0.2*(meanVal - dbVal);
 //       printf("Decibel level: %f\n", dbVal);
-//    
-//       vDSP_Length crossing;
-//       vDSP_Length total;
-//       const vDSP_Length numCrossings = numFrames;
-//       
-//       vDSP_nzcros(data, 1, numCrossings, &crossing, &total, numFrames*numChannels);
-//       
+    
+       vDSP_Length crossing;
+       vDSP_Length total;
+       const vDSP_Length numCrossings = numFrames;
+       
+       vDSP_nzcros(data, 1, numCrossings, &crossing, &total, numFrames*numChannels);
+       
 //       NSLog(@"total %lu", total);
 //       
 //       for(int i = 0; i < 1024; i++){
 //           NSLog(@"%i:%f",i ,data[i]);
 //       }
-    
-//    BetaAppDelegate *appDelegate;
-//    appDelegate = [(BetaAppDelegate *)[UIApplication sharedApplication] delegate];
-//    appDelegate.global_string = [NSString stringWithFormat:@"%f", dbVal];
-//
-//   }];
+       
+       NSArray *tmp = [NSArray array];
+       for(int i = 0; i < 1024; i++){
+           tmp = [tmp arrayByAddingObject:[NSNumber numberWithFloat: data[i]]];
+       }
+       NSLog(@"%d", nCrossings(tmp));
+//       appDelegate.global_string = [NSString stringWithFormat:@"%f", dbVal];
+
+   }];
     
     
     // SIGNAL GENERATOR!
@@ -227,14 +249,14 @@ BOOL inFrequencyRange(vDSP_Length zeroCrossings, int range){
     
     // AUDIO FILE READING OHHH YEAHHHH
     // ========================================
-//    NSURL *inputFileURL = [[NSBundle mainBundle] URLForResource:@"TLC" withExtension:@"mp3"];
+    NSURL *inputFileURL = [[NSBundle mainBundle] URLForResource:@"TLC" withExtension:@"mp3"];
 //    NSURL *inputFileURL = [[NSBundle mainBundle] URLForResource:@"samplefile" withExtension:@"wav"];
 //    NSURL *inputFileURL = [[NSBundle mainBundle] URLForResource:@"2000" withExtension:@"wav"];
-    //[NSThread sleepForTimeInterval:(5)];
-    NSURL *inputFileURL = [[NSBundle mainBundle] URLForResource:@"Columbia1" withExtension:@"wav"];
-    BOOL flag = 0;
-    //NSURL *inputFileURL = [[NSBundle mainBundle] URLForResource:@"Columbia2" withExtension:@"wav"];
-    //BOOL flag = 1;
+//    [NSThread sleepForTimeInterval:(5)];
+//    NSURL *inputFileURL = [[NSBundle mainBundle] URLForResource:@"Columbia1" withExtension:@"wav"];
+//    BOOL flag = 0;
+//    NSURL *inputFileURL = [[NSBundle mainBundle] URLForResource:@"Columbia2" withExtension:@"wav"];
+//    BOOL flag = 1;
     self.fileReader = [[AudioFileReader alloc]
                        initWithAudioFileURL:inputFileURL
                        samplingRate:self.audioManager.samplingRate
@@ -243,72 +265,65 @@ BOOL inFrequencyRange(vDSP_Length zeroCrossings, int range){
     [self.fileReader play];
     self.fileReader.currentTime = 0.0;
     
-    
-    
-    
-//    [self.audioManager setInputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels) {
-//        
-//    }];
-    
-    [self.audioManager setOutputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels)
-     {
-         [self.fileReader retrieveFreshAudio:data numFrames:numFrames numChannels:numChannels];
-         
-         vDSP_Length crossing;
-         vDSP_Length total;
-         const vDSP_Length numCrossings = numFrames;
-         
-         vDSP_nzcros(data, 1, numCrossings, &crossing, &total, numFrames*numChannels);
-         
-         NSLog(@"Zero crossings %lu", total);
-         if(inFrequencyRange(total, freq_change_digit)) {
-             //NSLog(@"Waiting for information");
-             _waitingForInfo= YES;
-         } else if (_waitingForInfo) {
-             _waitingForInfo = NO;
-             NSLog(@"Got %lu", total);
-             if (inFrequencyRange(total, freq_lat)) {
-                 _currentInfo = @"lat";
-             } else if (inFrequencyRange(total, freq_long)) {
-                 _currentInfo = @"long";
-             } else {
-                 NSString *digit = @(total).stringValue; //get the digit by matching with the frequency
-                 if ([_currentInfo isEqualToString:@"lat"]) {
-                     [_latitude stringByAppendingString:digit];
-                     // if complete, then expect another tone
-                 } else if ([_currentInfo isEqualToString:@"long"]) {
-                     [_longitude stringByAppendingString:digit];
-                     // if complete, then expect another tone
-                 }
-             }
-         }
-     }];
-    
-    NSString *counter = @"1";
-        _latitude = @"40.8091";
-        _longitude = @"-73.9638";
-    
-    if(flag != 0){
-        _latitude = @"40.809318";
-        _longitude = @"-73.959274";
-    }
-    
-    double lat = [_latitude doubleValue];
-    double lng = [_longitude doubleValue];
-    
-    GMSMarker *marker = [[GMSMarker alloc] init];
-    marker.position = CLLocationCoordinate2DMake(lat, lng);
-    marker.title = @"Columbia";
-    marker.snippet = counter;
-    marker.map = mapView_;
-    
-    int temp = [counter intValue];
-    temp++;
-    counter = [@(temp)stringValue];
-    
-    BetaAppDelegate *appDelegate;
-    appDelegate = [(BetaAppDelegate *)[UIApplication sharedApplication] delegate];
-    appDelegate.global_string = [NSString stringWithFormat:@"Latitude: %f, Longitude: %f", lat, lng];
+//    [self.audioManager setOutputBlock:^(float *data, UInt32 numFrames, UInt32 numChannels)
+//     {
+//         [self.fileReader retrieveFreshAudio:data numFrames:numFrames numChannels:numChannels];
+//         
+//         vDSP_Length crossing;
+//         vDSP_Length total;
+//         const vDSP_Length numCrossings = numFrames;
+//         
+//         vDSP_nzcros(data, 1, numCrossings, &crossing, &total, numFrames*numChannels);
+//         
+//         NSLog(@"Zero crossings %lu", total);
+//         if(inFrequencyRange(total, freq_change_digit)) {
+//             //NSLog(@"Waiting for information");
+//             _waitingForInfo= YES;
+//         } else if (_waitingForInfo) {
+//             _waitingForInfo = NO;
+//             NSLog(@"Got %lu", total);
+//             if (inFrequencyRange(total, freq_lat)) {
+//                 _currentInfo = @"lat";
+//             } else if (inFrequencyRange(total, freq_long)) {
+//                 _currentInfo = @"long";
+//             } else {
+//                 NSString *digit = @(total).stringValue; //get the digit by matching with the frequency
+//                 if ([_currentInfo isEqualToString:@"lat"]) {
+//                     [_latitude stringByAppendingString:digit];
+//                     // if complete, then expect another tone
+//                 } else if ([_currentInfo isEqualToString:@"long"]) {
+//                     [_longitude stringByAppendingString:digit];
+//                     // if complete, then expect another tone
+//                 }
+//             }
+//         }
+//     }];
+//    
+//    NSString *counter = @"1";
+//        _latitude = @"40.8091";
+//        _longitude = @"-73.9638";
+//    
+//    if(flag != 0){
+//        _latitude = @"40.809318";
+//        _longitude = @"-73.959274";
+//    }
+//    
+//    double lat = [_latitude doubleValue];
+//    double lng = [_longitude doubleValue];
+//    
+//    GMSMarker *marker = [[GMSMarker alloc] init];
+//    marker.position = CLLocationCoordinate2DMake(lat, lng);
+//    marker.title = @"Columbia";
+//    marker.snippet = counter;
+//    marker.map = mapView_;
+//    
+//    int temp = [counter intValue];
+//    temp++;
+//    counter = [@(temp)stringValue];
+//    
+//    BetaAppDelegate *appDelegate;
+//    appDelegate = [(BetaAppDelegate *)[UIApplication sharedApplication] delegate];
+//    appDelegate.global_string = [NSString stringWithFormat:@"Latitude: %f, Longitude: %f", lat, lng];
     
     // AUDIO FILE WRITING YEAH!
     // ========================================
