@@ -17,8 +17,6 @@
 
 @implementation BetaSecondViewController
 
-NSString *globalString;
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -32,8 +30,6 @@ NSString *globalString;
     self.latitudeLabel.text = appDelegate.global_string;
     self.Time.text = dateString;
     
-    globalString = appDelegate.global_string;
-    
     self.timer=[NSTimer scheduledTimerWithTimeInterval:0.7 target:self selector:@selector(rotatewarmup) userInfo:nil repeats:YES];
     
 	// Do any additional setup after loading the view, typically from a nib.
@@ -41,17 +37,13 @@ NSString *globalString;
 
 -(void)rotatewarmup
 {
-    BOOL same = true;
     BetaAppDelegate *appDelegate;
     appDelegate = [(BetaAppDelegate *)[UIApplication sharedApplication] delegate];
     self.latitudeLabel.text = appDelegate.global_string;
-    same = [globalString isEqualToString:appDelegate.global_string];
-    if(!same){
     NSString *dateString = [NSDateFormatter localizedStringFromDate:[NSDate date]
                                                           dateStyle:NSDateFormatterShortStyle
                                                           timeStyle:NSDateFormatterFullStyle];
     self.Time.text = dateString;
-    }
 }
 
 - (void)didReceiveMemoryWarning
