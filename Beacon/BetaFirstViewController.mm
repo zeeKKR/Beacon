@@ -254,7 +254,7 @@ int nCrossings(NSArray *data){
 //    NSURL *inputFileURL = [[NSBundle mainBundle] URLForResource:@"2000" withExtension:@"wav"];
 //    [NSThread sleepForTimeInterval:(5)];
 //    NSURL *inputFileURL = [[NSBundle mainBundle] URLForResource:@"Columbia1" withExtension:@"wav"];
-//    BOOL flag = 0;
+    BOOL flag = 0;
 //    NSURL *inputFileURL = [[NSBundle mainBundle] URLForResource:@"Columbia2" withExtension:@"wav"];
 //    BOOL flag = 1;
     self.fileReader = [[AudioFileReader alloc]
@@ -299,31 +299,32 @@ int nCrossings(NSArray *data){
 //         }
 //     }];
 //    
-//    NSString *counter = @"1";
-//        _latitude = @"40.8091";
-//        _longitude = @"-73.9638";
-//    
-//    if(flag != 0){
-//        _latitude = @"40.809318";
-//        _longitude = @"-73.959274";
-//    }
-//    
-//    double lat = [_latitude doubleValue];
-//    double lng = [_longitude doubleValue];
-//    
-//    GMSMarker *marker = [[GMSMarker alloc] init];
-//    marker.position = CLLocationCoordinate2DMake(lat, lng);
-//    marker.title = @"Columbia";
-//    marker.snippet = counter;
-//    marker.map = mapView_;
-//    
-//    int temp = [counter intValue];
-//    temp++;
-//    counter = [@(temp)stringValue];
-//    
-//    BetaAppDelegate *appDelegate;
-//    appDelegate = [(BetaAppDelegate *)[UIApplication sharedApplication] delegate];
-//    appDelegate.global_string = [NSString stringWithFormat:@"Latitude: %f, Longitude: %f", lat, lng];
+    NSString *counter = @"1";
+        _latitude = @"40.8091";
+        _longitude = @"-73.9638";
+    
+    if(flag != 0){
+        _latitude = @"40.809318";
+        _longitude = @"-73.959274";
+    }
+    
+    double lat = [_latitude doubleValue];
+    double lng = [_longitude doubleValue];
+    
+    GMSMarker *marker = [[GMSMarker alloc] init];
+    marker.position = CLLocationCoordinate2DMake(lat, lng);
+    marker.title = @"Columbia";
+    marker.snippet = counter;
+    marker.map = mapView_;
+    
+    int temp = [counter intValue];
+    temp++;
+    counter = [@(temp)stringValue];
+    
+    BetaAppDelegate *appDelegate;
+    appDelegate = [(BetaAppDelegate *)[UIApplication sharedApplication] delegate];
+    appDelegate.global_string = [NSString stringWithFormat:@"Latitude: %f, Longitude: %f", lat, lng];
+
     
     // AUDIO FILE WRITING YEAH!
     // ========================================
