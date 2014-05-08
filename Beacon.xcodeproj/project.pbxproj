@@ -12,6 +12,7 @@
 		2DCB34E3190D8C14000C516E /* FrequencyConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DCB34E2190D8C14000C516E /* FrequencyConstants.m */; };
 		2DCEAD6D190EF970000A0AA3 /* 1000.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2DCEAD6B190EF970000A0AA3 /* 1000.wav */; };
 		2DCEAD6E190EF970000A0AA3 /* 2000.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2DCEAD6C190EF970000A0AA3 /* 2000.wav */; };
+		E5A797A4191B36C2008AFC08 /* Columbia1.wav in Resources */ = {isa = PBXBuildFile; fileRef = E5A797A3191B36C2008AFC08 /* Columbia1.wav */; };
 		E5AB25A518DFAECC007BDEE4 /* AudioFileReader.mm in Sources */ = {isa = PBXBuildFile; fileRef = E5AB259E18DFAECC007BDEE4 /* AudioFileReader.mm */; };
 		E5AB25A618DFAECC007BDEE4 /* AudioFileWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AB25A018DFAECC007BDEE4 /* AudioFileWriter.m */; };
 		E5AB25A718DFAECC007BDEE4 /* Novocaine.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AB25A218DFAECC007BDEE4 /* Novocaine.m */; };
@@ -65,6 +66,7 @@
 		2DCB34E2190D8C14000C516E /* FrequencyConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrequencyConstants.m; sourceTree = "<group>"; };
 		2DCEAD6B190EF970000A0AA3 /* 1000.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 1000.wav; sourceTree = "<group>"; };
 		2DCEAD6C190EF970000A0AA3 /* 2000.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 2000.wav; sourceTree = "<group>"; };
+		E5A797A3191B36C2008AFC08 /* Columbia1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Columbia1.wav; path = ../../Columbia1.wav; sourceTree = "<group>"; };
 		E5AB259D18DFAECC007BDEE4 /* AudioFileReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFileReader.h; sourceTree = "<group>"; };
 		E5AB259E18DFAECC007BDEE4 /* AudioFileReader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AudioFileReader.mm; sourceTree = "<group>"; };
 		E5AB259F18DFAECC007BDEE4 /* AudioFileWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFileWriter.h; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 		E5C8968518BBDD6500BDFC49 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E5A797A3191B36C2008AFC08 /* Columbia1.wav */,
 				2DCEAD6B190EF970000A0AA3 /* 1000.wav */,
 				2DCEAD6C190EF970000A0AA3 /* 2000.wav */,
 				2D82C0A8190D9B8000D098D7 /* samplefile.wav */,
@@ -342,6 +345,7 @@
 				2D50223118FCE5020030EC86 /* mix.mp3 in Resources */,
 				E5AB25AA18DFB170007BDEE4 /* TLC.mp3 in Resources */,
 				E5C8968918BBDD6500BDFC49 /* InfoPlist.strings in Resources */,
+				E5A797A4191B36C2008AFC08 /* Columbia1.wav in Resources */,
 				2DCEAD6D190EF970000A0AA3 /* 1000.wav in Resources */,
 				2DCEAD6E190EF970000A0AA3 /* 2000.wav in Resources */,
 				E5C8969218BBDD6500BDFC49 /* Main.storyboard in Resources */,
